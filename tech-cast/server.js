@@ -21,6 +21,7 @@ MongoClient.connect('mongodb://localhost/tech-cast', (err, client) => {
       .catch(() => res.sendStatus(500))
   })
 
+  app.use(express.static('images'))
   app.listen(3000, () => {
     console.log('Listening on 3000')
   })
