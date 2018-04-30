@@ -1,0 +1,30 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "run-p lint:*",
+    "lint:js": "eslint ./**/*.js",
+    "test": "npm run lint",
+    "precommit": "npm test"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "expo": "^26.0.0",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7",
+    "react": "16.3.0-alpha.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz"
+  },
+  "devDependencies": {
+    "eslint": "4.5.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-node": "5.1.1",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "7.3.0",
+    "eslint-plugin-standard": "3.0.1",
+    "husky": "0.14.3",
+    "npm-run-all": "4.1.1"
+  }
+}
