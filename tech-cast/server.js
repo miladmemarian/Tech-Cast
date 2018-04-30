@@ -1,9 +1,10 @@
+require('dotenv/config')
 const express = require('express')
 const { MongoClient } = require('mongodb')
 
 const app = express()
 
-MongoClient.connect('mongodb://localhost/tech-cast', (err, client) => {
+MongoClient.connect(process.env.MONGODB_URI, (err, client) => {
   if (err) {
     console.error(err)
     process.exit(1)
@@ -21,7 +22,7 @@ MongoClient.connect('mongodb://localhost/tech-cast', (err, client) => {
   })
 
   app.use(express.static('images'))
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log('Listening on 3000')
   })
 })
