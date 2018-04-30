@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
-import { StyleSheet, View, FlatList, Text } from 'react-native'
+import { View } from 'react-native'
 import Podcasts from './podcasts.js'
 
 export default class App extends React.Component {
