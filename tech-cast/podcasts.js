@@ -9,19 +9,6 @@ import {
 } from 'react-native'
 
 export default class Podcasts extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { podcasts: [] }
-  }
-  componentDidMount() {
-    fetch('http://localhost:3000/', {
-      method: 'GET'
-    })
-      .then(response => response.json())
-      .then(podcasts => this.setState({ podcasts }))
-      .catch(err => console.error(err))
-  }
-
   keyExtractor(item, index) {
     return item.id.toString()
   }
@@ -34,7 +21,7 @@ export default class Podcasts extends React.Component {
           horizontal={false}
           numColumns={2}
           keyExtractor={this.keyExtractor}
-          data={this.state.podcasts}
+          data={this.props.podcasts}
           renderItem={({ item }) => (
             <View>
               <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
