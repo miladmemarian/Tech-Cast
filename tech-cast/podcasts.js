@@ -14,6 +14,10 @@ export default class Podcasts extends React.Component {
   }
 
   render() {
+    const searched = this.props.searchPodcasts(
+      this.props.keyword,
+      this.props.podcasts
+    )
     return (
       <View style={{ flex: 1 }}>
         <FlatList
@@ -21,7 +25,7 @@ export default class Podcasts extends React.Component {
           horizontal={false}
           numColumns={2}
           keyExtractor={this.keyExtractor}
-          data={this.props.podcasts}
+          data={searched}
           renderItem={({ item }) => (
             <View>
               <TouchableOpacity onPress={() => Linking.openURL(item.url)}>

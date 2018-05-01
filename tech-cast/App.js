@@ -23,10 +23,20 @@ export default class App extends React.Component {
     this.setState({ keyword: text })
   }
 
+  searchPodcasts(keyword, podcasts) {
+    return !keyword
+      ? podcasts
+      : podcasts.filter(podcast => podcast.name.includes(keyword))
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Podcasts podcasts={this.state.podcasts} />
+        <Podcasts
+          podcasts={this.state.podcasts}
+          searchPodcasts={this.searchPodcasts}
+          keyword={this.state.keyword}
+        />
         <SearchBar handleTextChange={this.handleTextChange} />
       </View>
     )
