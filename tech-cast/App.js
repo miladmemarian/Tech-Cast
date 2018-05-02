@@ -11,7 +11,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/', {
+    fetch('http://c6a10ddc.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
@@ -31,7 +31,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, marginTop: 20 }}>
         <Podcasts
           podcasts={this.state.podcasts}
           searchPodcasts={this.searchPodcasts}

@@ -30,8 +30,8 @@ export default class Podcasts extends React.Component {
             <View>
               <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
                 <Image
-                  style={{ width: 185, height: 200 }}
-                  source={{ uri: 'http://localhost:3000/' + item.image }}
+                  style={{ width: 188, height: 200 }}
+                  source={{ uri: 'http://c6a10ddc.ngrok.io/' + item.image }}
                 />
                 <Text
                   style={{
