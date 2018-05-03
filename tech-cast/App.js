@@ -11,11 +11,11 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://c6a10ddc.ngrok.io', {
+    fetch('http://1765871d.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
-      .then(podcasts => this.setState({ podcasts }))
+      .then(podcasts => this.setState({ podcasts: podcasts.results }))
       .catch(err => console.error(err))
   }
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
   searchPodcasts(keyword, podcasts) {
     return !keyword
       ? podcasts
-      : podcasts.filter(podcast => podcast.name.includes(keyword))
+      : podcasts.filter(podcast => podcast.title_original.includes(keyword))
   }
 
   render() {
