@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
     'https://listennotes.p.mashape.com/api/v1/search?genre_ids=131&len_max=10&len_min=2&offset=0&published_after=1390190241000&published_before=1490190241000&q=Tech&sort_by_date=0&type=podcast',
     {
       headers: {
-        'X-Mashape-Key': 'mngC4WsvycmshhTdeKW6AgMvKTMCp1rk63IjsnLBrOvDfMMWF4'
+        'X-Mashape-Key': process.env.API_Key
       }
     }
   )
