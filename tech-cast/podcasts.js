@@ -7,6 +7,7 @@ import {
   Text,
   View
 } from 'react-native'
+const TrimPodcastTitle = require('./trimPodcastTitle')
 
 export default class Podcasts extends React.Component {
   keyExtractor(item, index) {
@@ -28,20 +29,22 @@ export default class Podcasts extends React.Component {
           data={searched}
           renderItem={({ item }) => (
             <View>
-              <TouchableOpacity onPress={() => Linking.openURL(item.url)}>
+              <TouchableOpacity onPress={() => Linking.openURL(item.audio)}>
                 <Image
                   style={{ width: 188, height: 200 }}
-                  source={{ uri: 'http://c6a10ddc.ngrok.io/' + item.image }}
+                  source={{ uri: item.image }}
                 />
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    fontStyle: 'italic',
-                    fontWeight: 'bold'
-                  }}
-                >
-                  {item.name}
-                </Text>
+                <View style={{ alighSelf: 'flex-start' }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      fontStyle: 'italic',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    {TrimPodcastTitle(item.title_original)}
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
           )}
