@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  TouchableOpacity,
-  Image,
-  FlatList,
-  Linking,
-  Text,
-  View
-} from 'react-native'
+import { TouchableOpacity, Image, FlatList, Text, View } from 'react-native'
 const TrimPodcastTitle = require('./trimPodcastTitle')
 
 export default class Podcasts extends React.Component {
@@ -27,9 +20,9 @@ export default class Podcasts extends React.Component {
           numColumns={2}
           keyExtractor={this.keyExtractor}
           data={searched}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <View>
-              <TouchableOpacity onPress={() => Linking.openURL(item.audio)}>
+              <TouchableOpacity onPress={() => this.props.renderDetails(index)}>
                 <Image
                   style={{ width: 188, height: 200 }}
                   source={{ uri: item.image }}
