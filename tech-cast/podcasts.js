@@ -27,7 +27,7 @@ export default class Podcasts extends React.Component {
                   style={{ width: 188, height: 200 }}
                   source={{ uri: item.image }}
                 />
-                <View style={{ alighSelf: 'flex-start' }}>
+                <View style={{ alignSelf: 'flex-start' }}>
                   <Text
                     style={{
                       textAlign: 'center',
