@@ -17,22 +17,35 @@ export default class Details extends React.Component {
             padding: 2,
             marginTop: 10,
             textAlign: 'center',
-            fontWeight: 'bold'
+            fontWeight: '800',
+            fontSize: 18
           }}
         >
           {this.props.details.title}
         </Text>
-        <Text style={{ padding: 2, marginTop: 10, fontStyle: 'italic' }}>
+        <Text
+          style={{
+            padding: 10,
+            marginTop: 10,
+            fontSize: 20
+          }}
+        >
           Description:
         </Text>
-        <Text style={{ padding: 2, marginTop: 10 }}>
+        <Text style={{ paddingLeft: 14, paddingRight: 14, marginTop: 10 }}>
           {this.props.details.description}
         </Text>
-        <Text style={{ padding: 2, marginTop: 10, fontStyle: 'italic' }}>
+        <Text
+          style={{
+            fontSize: 20,
+            padding: 10,
+            marginTop: 10
+          }}
+        >
           Episodes:
         </Text>
         <FlatList
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 10, paddingLeft: 14, paddingRight: 14 }}
           data={this.props.details.episodes}
           keyExtractor={this.keyExtractor}
           renderItem={({ item }) => (
