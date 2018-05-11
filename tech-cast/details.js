@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, FlatList, Text, Image, StyleSheet } from 'react-native'
+import {
+  View,
+  FlatList,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native'
 
 export default class Details extends React.Component {
   keyExtractor(item, index) {
@@ -13,11 +20,16 @@ export default class Details extends React.Component {
         <Text style={style.descriptionTitle}>Description:</Text>
         <Text style={style.description}>{this.props.details.description}</Text>
         <Text style={style.episodesTitle}>Episodes:</Text>
+
         <FlatList
           style={style.episodes}
           data={this.props.details.episodes}
           keyExtractor={this.keyExtractor}
-          renderItem={({ item }) => <Text>{'Title:' + ' ' + item.title}</Text>}
+          renderItem={({ item }) => (
+            <TouchableOpacity>
+              <Text>{'Title:' + ' ' + item.title}</Text>
+            </TouchableOpacity>
+          )}
         />
       </View>
     )
