@@ -1,7 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
 import Podcasts from './podcasts'
-import SearchBar from './searchBar'
 import Details from './details'
 
 export default class App extends React.Component {
@@ -13,7 +12,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://a4f8f2c2.ngrok.io', {
+    fetch('http://4ba937ae.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
@@ -24,7 +23,7 @@ export default class App extends React.Component {
   renderDetails(podcastIndex) {
     this.setState({ showDetails: true })
     const url =
-      'http://a4f8f2c2.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
+      'http://4ba937ae.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
     fetch(url, {
       method: 'GET'
     })
@@ -45,21 +44,15 @@ export default class App extends React.Component {
 
   render() {
     const podcastSelected = this.state.showDetails ? (
-      <Details
-        details={this.state.details}
-        podcasts={this.state.podcasts}
-        style={{ flex: 1 }}
-      />
+      <Details details={this.state.details} podcasts={this.state.podcasts} />
     ) : (
-      <View style={{ flex: 1 }}>
-        <Podcasts
-          podcasts={this.state.podcasts}
-          searchPodcasts={this.searchPodcasts}
-          keyword={this.state.keyword}
-          renderDetails={this.renderDetails}
-        />
-        <SearchBar handleTextChange={this.handleTextChange} />
-      </View>
+      <Podcasts
+        podcasts={this.state.podcasts}
+        searchPodcasts={this.searchPodcasts}
+        keyword={this.state.keyword}
+        renderDetails={this.renderDetails}
+        handleTextChange={this.handleTextChange}
+      />
     )
     return <View style={{ flex: 1, marginTop: 20 }}>{podcastSelected}</View>
   }

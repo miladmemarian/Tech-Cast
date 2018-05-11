@@ -1,5 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Image, FlatList, Text, View } from 'react-native'
+import SearchBar from './searchBar'
 const TrimPodcastTitle = require('./trimPodcastTitle')
 
 export default class Podcasts extends React.Component {
@@ -42,6 +43,7 @@ export default class Podcasts extends React.Component {
             </View>
           )}
         />
+        <SearchBar handleTextChange={this.props.handleTextChange} />
       </View>
     )
   }
