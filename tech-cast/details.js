@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, Text, Image } from 'react-native'
+import { View, FlatList, Text, Image, StyleSheet } from 'react-native'
 
 export default class Details extends React.Component {
   keyExtractor(item, index) {
@@ -7,54 +7,55 @@ export default class Details extends React.Component {
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Image
-          style={{ height: 350 }}
-          source={{ uri: this.props.details.image }}
-        />
-        <Text
-          style={{
-            padding: 2,
-            marginTop: 10,
-            textAlign: 'center',
-            fontWeight: '800',
-            fontSize: 18
-          }}
-        >
-          {this.props.details.title}
-        </Text>
-        <Text
-          style={{
-            padding: 10,
-            marginTop: 10,
-            fontSize: 20
-          }}
-        >
-          Description:
-        </Text>
-        <Text style={{ paddingLeft: 14, paddingRight: 14, marginTop: 10 }}>
-          {this.props.details.description}
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            padding: 10,
-            marginTop: 10
-          }}
-        >
-          Episodes:
-        </Text>
+      <View style={style.container}>
+        <Image style={style.image} source={{ uri: this.props.details.image }} />
+        <Text style={style.title}>{this.props.details.title}</Text>
+        <Text style={style.descriptionTitle}>Description:</Text>
+        <Text style={style.description}>{this.props.details.description}</Text>
+        <Text style={style.episodesTitle}>Episodes:</Text>
         <FlatList
-          style={{ marginTop: 10, paddingLeft: 14, paddingRight: 14 }}
+          style={style.episodes}
           data={this.props.details.episodes}
           keyExtractor={this.keyExtractor}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{'Title:' + ' ' + item.title}</Text>
-            </View>
-          )}
+          renderItem={({ item }) => <Text>{'Title:' + ' ' + item.title}</Text>}
         />
       </View>
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  image: {
+    height: 350
+  },
+  title: {
+    padding: 2,
+    marginTop: 10,
+    textAlign: 'center',
+    fontWeight: '800',
+    fontSize: 18
+  },
+  descriptionTitle: {
+    padding: 10,
+    marginTop: 10,
+    fontSize: 20
+  },
+  description: {
+    paddingLeft: 14,
+    paddingRight: 14,
+    marginTop: 10
+  },
+  episodesTitle: {
+    fontSize: 20,
+    padding: 10,
+    marginTop: 10
+  },
+  episodes: {
+    marginTop: 10,
+    paddingLeft: 14,
+    paddingRight: 14
+  }
+})

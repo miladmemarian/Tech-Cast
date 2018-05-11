@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import Podcasts from './podcasts'
 import Details from './details'
 
@@ -54,6 +54,8 @@ export default class App extends React.Component {
         handleTextChange={this.handleTextChange}
       />
     )
-    return <View style={{ flex: 1, marginTop: 20 }}>{podcastSelected}</View>
+    return <View style={styles.container}>{podcastSelected}</View>
   }
 }
+
+const styles = StyleSheet.create({ container: { flex: 1, marginTop: 20 } })
