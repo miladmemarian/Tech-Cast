@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeyboardAvoidingView, View, TextInput } from 'react-native'
+import { KeyboardAvoidingView, View, TextInput, StyleSheet } from 'react-native'
 
 export default class SearchBar extends React.Component {
   render() {
@@ -9,20 +9,25 @@ export default class SearchBar extends React.Component {
         behavior="padding"
         enabled
       >
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: 'rgb(169,169,169)',
-            flexGrow: 1
-          }}
-        >
+        <View style={style.container}>
           <TextInput
             onChangeText={this.props.handleTextChange}
             placeholder={'search'}
-            style={{ height: 40 }}
+            style={style.input}
           />
         </View>
       </KeyboardAvoidingView>
     )
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    borderColor: 'rgb(169,169,169)',
+    flexGrow: 1
+  },
+  input: {
+    height: 40
+  }
+})

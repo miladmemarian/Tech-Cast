@@ -1,6 +1,7 @@
 require('dotenv/config')
 const express = require('express')
 const fetch = require('node-fetch')
+const path = require('path')
 
 const app = express()
 
@@ -16,6 +17,22 @@ app.get('/', (req, res) => {
     .then(podcasts => podcasts.json())
     .then(podcasts => res.send(podcasts))
     .catch(() => res.sendStatus(500))
+})
+
+app.get('/id/:id', (req, res) => {
+  const url =
+    'https://listennotes.p.mashape.com/api/v1/podcasts/' + req.params.id
+  fetch(url, {
+    headers: {
+      'X-Mashape-Key': process.env.API_Key
+    }
+  })
+    .then(details => details.json())
+    .then(details => res.send(details))
+    .catch(error => {
+      res.sendStatus(500)
+      console.error(error)
+    })
 })
 
 app.listen(process.env.PORT, () => {
