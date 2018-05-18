@@ -2,17 +2,26 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Podcasts from './podcasts'
 import Details from './details'
+import Expo from 'expo'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.handleTextChange = this.handleTextChange.bind(this)
     this.renderDetails = this.renderDetails.bind(this)
-    this.state = { podcasts: [], keyword: '', showDetails: false, details: {} }
+    this.playPodcast = this.playPodcast.bind(this)
+    this.state = {
+      podcasts: [],
+      keyword: '',
+      showDetails: false,
+      details: {},
+      played: false,
+      soundObject: {}
+    }
   }
 
   componentDidMount() {
-    fetch('http://4ba937ae.ngrok.io', {
+    fetch('http://a623ee10.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
@@ -23,7 +32,7 @@ export default class App extends React.Component {
   renderDetails(podcastIndex) {
     this.setState({ showDetails: true })
     const url =
-      'http://4ba937ae.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
+      'http://a623ee10.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
     fetch(url, {
       method: 'GET'
     })
@@ -41,10 +50,40 @@ export default class App extends React.Component {
       ? podcasts
       : podcasts.filter(podcast => podcast.title_original.includes(keyword))
   }
+  async playPodcast(item) {
+    if (!this.state.played) {
+      this.state.soundObject = new Expo.Audio.Sound()
+      try {
+        await this.state.soundObject.loadAsync({ uri: item.audio })
+        await this.state.soundObject.playAsync()
+        this.setState({
+          played: true
+        })
+      }
+      catch (err) {
+        console.error(err)
+      }
+    }
+    else {
+      try {
+        await this.state.soundObject.stopAsync()
+        this.setState({
+          played: false
+        })
+      }
+      catch (err) {
+        console.error(err)
+      }
+    }
+  }
 
   render() {
     const podcastSelected = this.state.showDetails ? (
-      <Details details={this.state.details} podcasts={this.state.podcasts} />
+      <Details
+        details={this.state.details}
+        podcasts={this.state.podcasts}
+        playPodcast={this.playPodcast}
+      />
     ) : (
       <Podcasts
         podcasts={this.state.podcasts}
