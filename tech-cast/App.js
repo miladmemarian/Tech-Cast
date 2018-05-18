@@ -21,18 +21,21 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://a623ee10.ngrok.io', {
+    fetch('http://06ac814d.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
       .then(podcasts => this.setState({ podcasts: podcasts.results }))
       .catch(err => console.error(err))
+    this.setState({
+      soundObject: new Expo.Audio.Sound()
+    })
   }
 
   renderDetails(podcastIndex) {
     this.setState({ showDetails: true })
     const url =
-      'http://a623ee10.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
+      'http://06ac814d.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
     fetch(url, {
       method: 'GET'
     })
@@ -52,7 +55,6 @@ export default class App extends React.Component {
   }
   async playPodcast(item) {
     if (!this.state.played) {
-      this.state.soundObject = new Expo.Audio.Sound()
       try {
         await this.state.soundObject.loadAsync({ uri: item.audio })
         await this.state.soundObject.playAsync()
@@ -67,6 +69,7 @@ export default class App extends React.Component {
     else {
       try {
         await this.state.soundObject.stopAsync()
+        await this.state.soundObject.unloadAsync()
         this.setState({
           played: false
         })
