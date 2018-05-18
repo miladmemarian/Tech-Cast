@@ -7,13 +7,11 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native'
-import Expo from 'expo'
 export default class Details extends React.Component {
   keyExtractor(item, index) {
     return item.id.toString()
   }
   render() {
-    const soundObject = new Expo.Audio.Sound()
     return (
       <View style={style.container}>
         <Image style={style.image} source={{ uri: this.props.details.image }} />
@@ -27,21 +25,7 @@ export default class Details extends React.Component {
           data={this.props.details.episodes}
           keyExtractor={this.keyExtractor}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={async () => {
-                try {
-                  await soundObject.loadAsync({ uri: item.audio })
-                  await soundObject.setAudioModeAsync({
-                    interruptionModeIOS:
-                      soundObject.INTERRUPTION_MODE_IOS_DO_NOT_MIX
-                  })
-                  await soundObject.playAsync()
-                }
-                catch (err) {
-                  console.error(err)
-                }
-              }}
-            >
+            <TouchableOpacity onPress={() => this.props.playPodcast(item)}>
               <Text>{'Title:' + ' ' + item.title}</Text>
             </TouchableOpacity>
           )}
