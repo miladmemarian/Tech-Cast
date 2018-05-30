@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Podcasts from './podcasts'
+import CreateAccount from './createAccount'
 import Details from './details'
 import Expo from 'expo'
 
@@ -10,18 +11,20 @@ export default class App extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this)
     this.renderDetails = this.renderDetails.bind(this)
     this.playPodcast = this.playPodcast.bind(this)
+    this.renderList = this.renderList.bind(this)
     this.state = {
       podcasts: [],
       keyword: '',
       showDetails: false,
       details: {},
       played: false,
-      soundObject: {}
+      soundObject: {},
+      userLoggedIn: false
     }
   }
 
   componentDidMount() {
-    fetch('http://06ac814d.ngrok.io', {
+    fetch('http://8b33def9.ngrok.io', {
       method: 'GET'
     })
       .then(response => response.json())
@@ -35,7 +38,7 @@ export default class App extends React.Component {
   renderDetails(podcastIndex) {
     this.setState({ showDetails: true })
     const url =
-      'http://06ac814d.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
+      'http://8b33def9.ngrok.io/id/' + this.state.podcasts[podcastIndex].id
     fetch(url, {
       method: 'GET'
     })
@@ -53,6 +56,7 @@ export default class App extends React.Component {
       ? podcasts
       : podcasts.filter(podcast => podcast.title_original.includes(keyword))
   }
+
   async playPodcast(item) {
     if (!this.state.played) {
       try {
@@ -80,23 +84,34 @@ export default class App extends React.Component {
     }
   }
 
+  renderList() {
+    this.setState({
+      userLoggedIn: true
+    })
+  }
+
   render() {
-    const podcastSelected = this.state.showDetails ? (
-      <Details
-        details={this.state.details}
-        podcasts={this.state.podcasts}
-        playPodcast={this.playPodcast}
-      />
+    const loggedIn = this.state.userLoggedIn ? (
+      this.state.showDetails ? (
+        <Details
+          details={this.state.details}
+          podcasts={this.state.podcasts}
+          playPodcast={this.playPodcast}
+        />
+      ) : (
+        <Podcasts
+          podcasts={this.state.podcasts}
+          searchPodcasts={this.searchPodcasts}
+          keyword={this.state.keyword}
+          renderDetails={this.renderDetails}
+          handleTextChange={this.handleTextChange}
+        />
+      )
     ) : (
-      <Podcasts
-        podcasts={this.state.podcasts}
-        searchPodcasts={this.searchPodcasts}
-        keyword={this.state.keyword}
-        renderDetails={this.renderDetails}
-        handleTextChange={this.handleTextChange}
-      />
+      <CreateAccount renderList={this.renderList} />
     )
-    return <View style={styles.container}>{podcastSelected}</View>
+
+    return <View style={styles.container}>{loggedIn}</View>
   }
 }
 
